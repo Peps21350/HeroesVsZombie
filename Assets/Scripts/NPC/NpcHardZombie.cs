@@ -2,7 +2,7 @@
 {
     public class NpcHard_zombie : Npc
     {
-        public NpcHard_zombie(string name, float health,float currentHealth,float speedOfMovement) : base(name, health, currentHealth,speedOfMovement)
+        public NpcHard_zombie(string name, float health,float currentHealth,float speedOfMovement, int priceToSpawn) : base(name, health, currentHealth,speedOfMovement, priceToSpawn)
         {
         }
         

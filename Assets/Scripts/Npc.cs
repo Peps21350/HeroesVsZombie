@@ -16,12 +16,15 @@ namespace DefaultNamespace
 
       protected int priceToUnlock { get; set; }
 
-      protected Npc(string name, float health, float currentHealth,float speedOfMovement)
+      protected int priceToSpawn { get; set; }
+
+      protected Npc(string name, float health, float currentHealth,float speedOfMovement, int priceToSpawn)
       {
          this.name = name;
          this.health = health;
          this.currentHealth = currentHealth;
          this.speedOfMovement = speedOfMovement;
+         this.priceToSpawn = priceToSpawn;
       }
 
       public abstract void Give_damage();

@@ -2,7 +2,7 @@
 {
     public class NpcBowman : Npc
     {
-        public NpcBowman(string name, float health,float currentHealth,float speedOfMovement, int price) : base(name, health, currentHealth,speedOfMovement)
+        public NpcBowman(string name, float health,float currentHealth,float speedOfMovement, int price, int priceToSpawn) : base(name, health, currentHealth, speedOfMovement, priceToSpawn)
         {
             priceToUnlock = price;
         }

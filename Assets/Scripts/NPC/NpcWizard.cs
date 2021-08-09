@@ -2,7 +2,7 @@
 {
     public class NpcWizard : Npc
     {
-        public NpcWizard(string name, float health,float current_health,float speedOfMovement ,int price) : base(name, health, current_health, speedOfMovement)
+        public NpcWizard(string name, float health,float current_health,float speedOfMovement ,int price, int priceToSpawn) : base(name, health, current_health, speedOfMovement, priceToSpawn)
         {
             priceToUnlock = price;
         }

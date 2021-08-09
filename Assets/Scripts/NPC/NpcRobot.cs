@@ -4,7 +4,7 @@ namespace DefaultNamespace
 {
     public class NpcRobot : Npc
     {
-        public NpcRobot(string name, float health,float currentHealth,float speedOfMovement, int price) : base(name, health, currentHealth,speedOfMovement)
+        public NpcRobot(string name, float health,float currentHealth,float speedOfMovement, int price, int priceToSpawn) : base(name, health, currentHealth,speedOfMovement, priceToSpawn)
         {
 
             priceToUnlock = price;
