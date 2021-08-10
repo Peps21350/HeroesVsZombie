@@ -4,10 +4,14 @@ namespace DefaultNamespace
 {
     public class NpcRobot : Npc
     {
-        public NpcRobot(string name, float health,float currentHealth,float speedOfMovement, int price, int priceToSpawn) : base(name, health, currentHealth,speedOfMovement, priceToSpawn)
+        public void init(string name, float health, float current_health,float speed_of_movement, int price_to_spawn, int price)
         {
-
-            priceToUnlock = price;
+            this.name = name;
+            this.health = health;
+            this.current_health = current_health;
+            this.speed_of_movement = speed_of_movement;
+            this.price_to_spawn = price_to_spawn;
+            price_to_unlock = price;
         }
 
         public override void Give_damage()
@@ -20,7 +24,7 @@ namespace DefaultNamespace
             throw new System.NotImplementedException();
         }
         
-        public override IWeapon weapon { get; set; }
+        public  IWeapon weapon { get; set; }
         
         public override void Display_information()
         {
