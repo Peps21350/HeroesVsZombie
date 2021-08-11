@@ -4,27 +4,9 @@ namespace DefaultNamespace
 {
     public class NpcRobot : Npc
     {
-        public void init(string name, float health, float current_health,float speed_of_movement, int price_to_spawn, int price)
-        {
-            this.name = name;
-            this.health = health;
-            this.current_health = current_health;
-            this.speed_of_movement = speed_of_movement;
-            this.price_to_spawn = price_to_spawn;
-            price_to_unlock = price;
-        }
 
-        public override void Give_damage()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Take_damage()
-        {
-            throw new System.NotImplementedException();
-        }
         
-        public  IWeapon weapon { get; set; }
+        public  IWeapon weapon => new WeaponM4("M4",  6,  4,  6);
         
         public override void Display_information()
         {

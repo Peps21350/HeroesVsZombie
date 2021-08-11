@@ -6,32 +6,28 @@ using Random = UnityEngine.Random;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ZombieMechanics : NpcZombie
+public class ZombieMechanics : MonoBehaviour
 {
 
     public GameObject[] arrayZombies;
-    private NpcZombie[] createdZombies;
+    [NonReorderable]private NpcZombie[] createdZombies;
     public Text textHealth;
+    private Vector3 result;
     
     public int countZombies;
-    //public int levelOfDifficulty;
 
-    private Rigidbody rb;
-    //private NpcZombie zombie1 = new NpcZombie("ordinary zombie", 20f,20f,20f,0);
-    
 
-   
     private void Start()
     {
         //ZombieSpawn();
         CreatingZombie();
-        ZombieMovement(true);
+        ZombieMovement(true,1);
     }
 
     private void Update()
     {
         AllHPZombies();
-        CheckEndMovement();
+        //CheckEndMovement();
     }
 
     public Vector3 ZombieSpawn()
@@ -40,16 +36,18 @@ public class ZombieMechanics : NpcZombie
         int randomCoordinates = Random.Range(1, 20);
         if (randLocations == 0)
         {
-            return new Vector3(1600f, 554f, 0) - new Vector3(randomCoordinates, 0 ,0);
+            result = new Vector3(1600f, 554f, 0) - new Vector3(randomCoordinates, 0 ,0);
         }
         if (randLocations == 1)
         {
-            return new Vector3(1600f, 435f, 0) - new Vector3(randomCoordinates, 0, 0);
+            result = new Vector3(1600f, 435f, 0) - new Vector3(randomCoordinates, 0, 0);
         }
-        else
+        if (randLocations == 2)
         {
-            return new Vector3(1600f, 294f, 0) - new Vector3(randomCoordinates, 0, 0);
+            result = new Vector3(1600f, 294f, 0) - new Vector3(randomCoordinates, 0, 0);
         }
+
+        return result;
     }
 
     public void CreatingZombie()
@@ -63,38 +61,27 @@ public class ZombieMechanics : NpcZombie
             {
                 createdZombies[i] = Instantiate(arrayZombies[0], ZombieSpawn(), Quaternion.identity).GetComponent<NpcZombie>();
                 createdZombies[i].transform.localScale = new Vector3(15, 15, 1);
-                createdZombies[i].init("usually", 90,90,100000,0);
+                createdZombies[i].init("usually", 90,100000,0,0,true);
             }
             if (rand == 1)
             {
                 createdZombies[i] = Instantiate(arrayZombies[1], ZombieSpawn(), Quaternion.identity).GetComponent<NpcZombie>();
                 createdZombies[i].transform.localScale = new Vector3(15, 15, 1);
-                createdZombies[i].init("usually", 120,120,70000,0);
+                createdZombies[i].init("usually", 120,70000,0,0,true);
             }
 
             
         }
     }
+    
 
-    private void CheckEndMovement()
-    {
-        foreach (var mobs in createdZombies)
-        {
-            if (mobs.transform.position.x == 250)
-            {
-                ZombieMovement(false);
-                GameManager.EndGame();
-            }
-        }
-    }
-
-    public void ZombieMovement(bool state_movement)
+    public void ZombieMovement(bool state_movement,float speed)
     {
         if (state_movement)
         {
             for (int i = 0; i < countZombies; i++)
             {
-                createdZombies[i].GetComponent<Rigidbody>().AddForce(-Time.deltaTime * createdZombies[i].speedOfMovement,0,0);
+                createdZombies[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(-Time.deltaTime * createdZombies[i].speedOfMovement * speed,0));
             }
         }
         else
@@ -104,11 +91,8 @@ public class ZombieMechanics : NpcZombie
                 createdZombies[i].enabled = state_movement;
             }
         }
-
-        
     }
     
-
     private void AllHPZombies()
     {
         float allHealth = 0;
