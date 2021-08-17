@@ -303,8 +303,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6067391495305704663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 666, y: 402, z: 0}
-  m_LocalScale: {x: 197.20601, y: 231.06102, z: 1}
+  m_LocalPosition: {x: 673.5529, y: 396.7711, z: 0}
+  m_LocalScale: {x: 175.31615, y: 204.92802, z: 1}
   m_Children:
   - {fileID: 4217518231588549900}
   m_Father: {fileID: 0}
@@ -375,12 +375,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider_hp: {fileID: 8302847706848681693}
   is_enemy: 0
-  health: 0
+  health: 50
   attack_damage: 0
-  speed_of_movement: 0
-  current_health: 0
-  price_to_unlock: 0
-  price_to_spawn: 0
+  speed_of_movement: 400000
+  current_health: 50
+  price_to_unlock: 30
+  price_to_spawn: 25
 --- !u!50 &2718679349859589255
 Rigidbody2D:
   serializedVersion: 4
@@ -415,7 +415,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.09, y: 0}
   m_Size: {x: 0.45, y: 0.0001}
   m_Direction: 0
 --- !u!1 &6999282493393642650

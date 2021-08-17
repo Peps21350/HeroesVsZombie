@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
     public class RobotMechanic : MonoBehaviour
     {
-        //public Button[] buttons;
+        /*//public Button[] buttons;
         private bool state_spawn = false;
         public GameObject[] robot;
         [NonReorderable] public  NpcRobot[] created_robots;
@@ -16,13 +18,11 @@ namespace DefaultNamespace
 
         private bool type_robot;
 
-
-        
         public void SpawnRobotUp()
         {
             if (state_spawn)
             {
-                result = new Vector3(250f, 550f, 0);
+                result = new Vector3(250f, 530f, 0);
                 CreatingRobot(result);
                 RobotMovement(1000000);
             }
@@ -33,7 +33,7 @@ namespace DefaultNamespace
         {
             if (state_spawn)
             {
-                result = new Vector3(250f, 427f, 0);
+                result = new Vector3(250f, 415f, 0);
                 CreatingRobot(result);
                 RobotMovement(1000000);
             }
@@ -44,7 +44,7 @@ namespace DefaultNamespace
         {
             if (state_spawn)
             {
-                result = new Vector3(250f, 287f, 0);
+                result = new Vector3(250f, 270f, 0);
                 CreatingRobot(result);
                 RobotMovement(1000000);
             }
@@ -62,7 +62,7 @@ namespace DefaultNamespace
                     //int rand = Random.Range(0, arrayZombies.Length);
                     created_robots[i] = Instantiate(robot[0], result_coords, Quaternion.identity).GetComponent<NpcRobot>();
                     created_robots[i].transform.localScale = new Vector3(robot[0].transform.localScale.x, robot[0].transform.localScale.y, 1);
-                    created_robots[i].init("Robot1", 90,850000,15,10);
+                    created_robots[i].init("Robot1", 90,400000,15,10);
                     AllHPRobots();
                 }
             }
@@ -73,12 +73,14 @@ namespace DefaultNamespace
                     //int rand = Random.Range(0, arrayZombies.Length);
                     created_robots[i] = Instantiate(robot[1], result_coords, Quaternion.identity).GetComponent<NpcRobot>();
                     created_robots[i].transform.localScale = new Vector3(robot[1].transform.localScale.x, robot[1].transform.localScale.y, 1);
-                    created_robots[i].init("Robot2", 50,1000000,25,10);
+                    created_robots[i].init("Robot2", 50,400000,25,10);
                     AllHPRobots();
                 }
             }
         }
-        
+
+       
+
         public void RobotMovement(float speed)
         {
             foreach (var robot_movement in created_robots)
@@ -125,6 +127,7 @@ namespace DefaultNamespace
 
         private float AllHPRobots()
         {
+            allHealth=0;
             if (created_robots[0] != null)
             {
                 foreach (var robot in created_robots)
@@ -134,6 +137,7 @@ namespace DefaultNamespace
             }
             return allHealth;
         }
+        */
         
         
     }

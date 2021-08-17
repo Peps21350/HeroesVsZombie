@@ -6,7 +6,7 @@ namespace DefaultNamespace
     {
 
         
-        public  IWeapon weapon => new WeaponM4("M4",  6,  4,  6);
+        public override IWeapon weapon => new WeaponM4("M4",  6,  4,  6);
         
         public override void Display_information()
         {

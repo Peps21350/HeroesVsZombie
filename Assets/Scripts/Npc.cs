@@ -8,9 +8,12 @@ namespace DefaultNamespace
 {
    public class Npc : MonoBehaviour
    {
+      public event Action<float> onHealthChange = delegate {};
+
       public Slider slider_hp;
 
       public bool is_enemy = false;
+      
       
       protected string name { get; set; }
       
@@ -28,7 +31,7 @@ namespace DefaultNamespace
       public virtual IWeapon weapon { get; set; }
 
       
-      [SerializeField] protected float current_health;
+      [SerializeField] public float current_health;
       
       public float currentHealth => current_health;
 
@@ -45,7 +48,7 @@ namespace DefaultNamespace
       {
       }
 
-      public virtual void init(string name, float health,float speed_of_movement, int price_to_spawn, int price, bool is_enemy = false)
+      public void init(string name, float health,float speed_of_movement, int price_to_spawn, int price, bool is_enemy = false)
       {
          this.name = name;
          this.health = health;
@@ -55,6 +58,36 @@ namespace DefaultNamespace
          price_to_unlock = price;
          this.is_enemy = is_enemy;
       }
+
+      private void OnCollisionEnter2D(Collision2D other)
+      {
+         if (other.gameObject.CompareTag("Npc"))
+         {
+            Npc npc_component = other.gameObject.GetComponent<Npc>();
+
+            npc_component.GetComponent<Rigidbody2D>().velocity = Vector2.one;
+            
+         }
+      }
+
+      private void OnCollisionExit2D(Collision2D other)
+      {
+         Npc npc_component = other.gameObject.GetComponent<Npc>();
+         if (!is_enemy)
+            npc_component.GetComponent<Rigidbody2D>().AddForce(new Vector2(-Time.deltaTime * npc_component.speedOfMovement ,0));
+         else
+            npc_component.GetComponent<Rigidbody2D>().AddForce(new Vector2(Time.deltaTime * npc_component.speedOfMovement,0));
+      }
+
+ 
+
+      private void DestrouNPC()
+      {
+         Npc npc_component = gameObject.GetComponent<Npc>();
+         if(npc_component.transform.position.x > 1700 || npc_component.transform.position.x < 30 )
+            Destroy(npc_component);
+      }
+
 
       private void OnCollisionStay2D(Collision2D other)
       {
@@ -71,6 +104,7 @@ namespace DefaultNamespace
 
       public void Take_damage( float damage_amount )
       {
+         
          current_health -= damage_amount;
          if (current_health < 0)
          {
@@ -79,10 +113,11 @@ namespace DefaultNamespace
             return;
          }
 
+         onHealthChange(health);
          updateHealthUI();
          //doDead();
       }
-      
+
       private void updateHealthUI()
       {
          slider_hp.minValue = 0;

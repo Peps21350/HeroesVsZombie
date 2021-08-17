@@ -10,7 +10,7 @@ public class ZombieMechanics : MonoBehaviour
 {
 
     public GameObject[] arrayZombies;
-    [NonReorderable]private NpcZombie[] createdZombies;
+    [NonReorderable]private List<NpcZombie> createdZombies = new List<NpcZombie>();
     public Text textHealth;
     private Vector3 result;
     
@@ -19,20 +19,13 @@ public class ZombieMechanics : MonoBehaviour
 
     private void Start()
     {
-        //ZombieSpawn();
         CreatingZombie();
-        ZombieMovement(true,1);
+        ZombieMovement();
     }
-
-    private void Update()
-    {
-        AllHPZombies();
-        //CheckEndMovement();
-    }
-
+    
     public Vector3 ZombieSpawn()
     {
-        int randLocations = Random.Range(0, 2);
+        int randLocations = Random.Range(0, 3);
         int randomCoordinates = Random.Range(1, 20);
         if (randLocations == 0)
         {
@@ -52,55 +45,44 @@ public class ZombieMechanics : MonoBehaviour
 
     public void CreatingZombie()
     {
-        createdZombies = new NpcZombie[countZombies];
         for (int i = 0; i < countZombies; i++)
         {
             int rand = Random.Range(0, arrayZombies.Length);
-            
-            if (rand == 0)
-            {
-                createdZombies[i] = Instantiate(arrayZombies[0], ZombieSpawn(), Quaternion.identity).GetComponent<NpcZombie>();
-                createdZombies[i].transform.localScale = new Vector3(15, 15, 1);
-                createdZombies[i].init("usually", 90,100000,0,0,true);
-            }
-            if (rand == 1)
-            {
-                createdZombies[i] = Instantiate(arrayZombies[1], ZombieSpawn(), Quaternion.identity).GetComponent<NpcZombie>();
-                createdZombies[i].transform.localScale = new Vector3(15, 15, 1);
-                createdZombies[i].init("usually", 120,70000,0,0,true);
-            }
+            NpcZombie new_zombie = Instantiate(arrayZombies[rand], ZombieSpawn(), Quaternion.identity).GetComponent<NpcZombie>();
+            new_zombie.transform.localScale = new Vector3(15, 15, 1);
+            new_zombie.onHealthChange += _ => AllHPZombies();
 
+            switch (rand)
+            {
+                case 0:
+                    new_zombie.init("usually", 90,100000,0,0,true);
+                    break;
+                case 1:
+                    new_zombie.init("hard", 120,70000,0,0,true);
+                    break;
+            }
             
+            createdZombies.Add(new_zombie);
         }
     }
     
 
-    public void ZombieMovement(bool state_movement,float speed)
+    public void ZombieMovement()
     {
-        if (state_movement)
+        for (int i = 0; i < countZombies; i++)
         {
-            for (int i = 0; i < countZombies; i++)
-            {
-                createdZombies[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(-Time.deltaTime * createdZombies[i].speedOfMovement * speed,0));
-            }
-        }
-        else
-        {
-            for (int i = 0; i < countZombies; i++)
-            {
-                createdZombies[i].enabled = state_movement;
-            }
+            createdZombies[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(-Time.deltaTime * createdZombies[i].speedOfMovement ,0));
+            
         }
     }
     
-    private void AllHPZombies()
+    public void AllHPZombies()
     {
-        float allHealth = 0;
+        float all_health = 0;
         foreach (var zombie in createdZombies)
         {
-            allHealth += zombie.currentHealth;
+            all_health += zombie.currentHealth;
         }
-
-        textHealth.text = $"{allHealth}";
+        textHealth.text = $"{(int)all_health}";
     }
 }

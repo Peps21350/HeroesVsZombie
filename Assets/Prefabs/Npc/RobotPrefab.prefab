@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077034796102071895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 512, y: 437, z: 0}
-  m_LocalScale: {x: 200, y: 239, z: 1}
+  m_LocalPosition: {x: 516.6561, y: 427.14, z: 0}
+  m_LocalScale: {x: 180.6, y: 207.69101, z: 1}
   m_Children:
   - {fileID: 5482629338648652268}
   m_Father: {fileID: 0}
@@ -100,12 +100,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider_hp: {fileID: 4432748395807158954}
   is_enemy: 0
-  health: 0
+  health: 90
   attack_damage: 0
-  speed_of_movement: 0
-  current_health: 0
-  price_to_unlock: 0
-  price_to_spawn: 0
+  speed_of_movement: 400000
+  current_health: 90
+  price_to_unlock: 15
+  price_to_spawn: 15
 --- !u!70 &8409669740384001261
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03, y: 0}
+  m_Offset: {x: 0.1, y: 0}
   m_Size: {x: 0.48, y: 0.57}
   m_Direction: 0
 --- !u!50 &3567416120901870503
