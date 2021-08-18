@@ -9,6 +9,8 @@ TagManager:
   - Robot2
   - Zombie
   - Npc
+  - FinishForZombie
+  - FinishForHero
   layers:
   - Default
   - TransparentFX
@@ -16,12 +18,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Infantryman2
+  - Infantryman1
+  - Robot1
+  - Robot2
+  - Zombie1
+  - Zombie2
   - 
   - 
   - 

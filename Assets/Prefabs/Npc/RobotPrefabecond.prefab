@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 6127127292821852653}
   - component: {fileID: 2718679349859589255}
   - component: {fileID: 3199727346970076293}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RobotPrefabecond
   m_TagString: Npc
   m_Icon: {fileID: 0}

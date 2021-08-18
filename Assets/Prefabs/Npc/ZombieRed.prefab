@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2988184520929353297}
   - component: {fileID: 7464129876134721240}
   - component: {fileID: 2741747255363511665}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ZombieRed
   m_TagString: Npc
   m_Icon: {fileID: 0}

@@ -4,18 +4,28 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using Random = UnityEngine.Random;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class ZombieMechanics : MonoBehaviour
 {
 
     public GameObject[] arrayZombies;
-    [NonReorderable]private List<NpcZombie> createdZombies = new List<NpcZombie>();
+    [HideInInspector]private List<NpcZombie> createdZombies = new List<NpcZombie>();
     public Text textHealth;
     private Vector3 result;
     
     public int countZombies;
 
+
+    private void Update()
+    {
+        if (Time.time == 20)
+        {
+            CreatingZombie();
+            ZombieMovement();
+        }
+    }
 
     private void Start()
     {
@@ -29,15 +39,15 @@ public class ZombieMechanics : MonoBehaviour
         int randomCoordinates = Random.Range(1, 20);
         if (randLocations == 0)
         {
-            result = new Vector3(1600f, 554f, 0) - new Vector3(randomCoordinates, 0 ,0);
+            result = new Vector3(1700f, 550f, 0) - new Vector3(randomCoordinates, 0 ,0);
         }
         if (randLocations == 1)
         {
-            result = new Vector3(1600f, 435f, 0) - new Vector3(randomCoordinates, 0, 0);
+            result = new Vector3(1700f, 431f, 0) - new Vector3(randomCoordinates, 0, 0);
         }
         if (randLocations == 2)
         {
-            result = new Vector3(1600f, 294f, 0) - new Vector3(randomCoordinates, 0, 0);
+            result = new Vector3(1700f, 290f, 0) - new Vector3(randomCoordinates, 0, 0);
         }
 
         return result;

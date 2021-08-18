@@ -13,7 +13,8 @@ namespace DefaultNamespace
       public Slider slider_hp;
 
       public bool is_enemy = false;
-      
+
+
       
       protected string name { get; set; }
       
@@ -64,9 +65,20 @@ namespace DefaultNamespace
          if (other.gameObject.CompareTag("Npc"))
          {
             Npc npc_component = other.gameObject.GetComponent<Npc>();
-
             npc_component.GetComponent<Rigidbody2D>().velocity = Vector2.one;
-            
+         }
+
+         if (other.gameObject.CompareTag("FinishForHero"))
+         {
+            Npc npc_component = other.gameObject.GetComponent<Npc>();
+            Debug.Log("вивід вікна про перемогу");
+            GameManager.instance.Open(false,true);
+         }
+         if (other.gameObject.CompareTag("FinishForZombie"))
+         {
+            Npc npc_component = other.gameObject.GetComponent<Npc>();
+            Debug.Log("вивід вікна про поразку");
+            GameManager.instance.Open(false,false);
          }
       }
 
@@ -81,12 +93,12 @@ namespace DefaultNamespace
 
  
 
-      private void DestrouNPC()
-      {
-         Npc npc_component = gameObject.GetComponent<Npc>();
-         if(npc_component.transform.position.x > 1700 || npc_component.transform.position.x < 30 )
-            Destroy(npc_component);
-      }
+      // private void DestroyNPC()
+      // {
+      //    Npc npc_component = gameObject.GetComponent<Npc>();
+      //    if(npc_component.transform.position.x > 1700 || npc_component.transform.position.x < 30 )
+      //       Destroy(npc_component);
+      // }
 
 
       private void OnCollisionStay2D(Collision2D other)

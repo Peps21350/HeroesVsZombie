@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 7280538021371951933}
   - component: {fileID: 4700369854765028674}
   - component: {fileID: 4542324995245348292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ZombiePrefab
   m_TagString: Npc
   m_Icon: {fileID: 0}

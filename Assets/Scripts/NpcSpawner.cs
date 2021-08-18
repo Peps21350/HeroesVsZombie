@@ -17,22 +17,21 @@ namespace DefaultNamespace
         private bool is_infantryman = false; 
         private int number_npc;
         public static float all_health = 0; 
-        [NonReorderable] private  List<NpcInfantryman> created_infantryman = new List<NpcInfantryman>();
-        [NonReorderable] private List<NpcRobot> created_robot = new List<NpcRobot>();
-        private GameManager gm = new GameManager();
+        private  List<NpcInfantryman> created_infantryman = new List<NpcInfantryman>();
+        private List<NpcRobot> created_robot = new List<NpcRobot>();
 
 
         public void ClickOnButtonWithNPC()
         {
             number_npc = 1;
             state_spawn = true;
-            gm.ShowButtonsSpawn(true);
+            GameManager.instance.ShowButtonsSpawn(true);
         }
         public void ClickOnButtonWithNPC2()
         {
             number_npc = 2;
             state_spawn = true;
-            gm.ShowButtonsSpawn(true);
+            GameManager.instance.ShowButtonsSpawn(true);
             
         }
         
@@ -85,7 +84,7 @@ namespace DefaultNamespace
                 else
                     SpawnRobot(result,number_npc);
                 is_infantryman = false;
-                gm.ShowButtonsSpawn(false);
+                GameManager.instance.ShowButtonsSpawn(false);
             }
             state_spawn = false;
 
@@ -101,7 +100,7 @@ namespace DefaultNamespace
                 else
                     SpawnRobot(result,number_npc);
                 is_infantryman = false;
-                gm.ShowButtonsSpawn(false);
+                GameManager.instance.ShowButtonsSpawn(false);
             }
             state_spawn = false;
         }
@@ -116,7 +115,7 @@ namespace DefaultNamespace
                 else
                     SpawnRobot(result,number_npc);
                 is_infantryman = false;
-                gm.ShowButtonsSpawn(false);
+                GameManager.instance.ShowButtonsSpawn(false);
             }
             state_spawn = false;
         }

@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 5153220282552851859}
   - component: {fileID: 960021693945849575}
   - component: {fileID: 8281821366406158257}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InfantrymanPrefab
   m_TagString: Npc
   m_Icon: {fileID: 0}
