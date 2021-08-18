@@ -13,6 +13,7 @@ namespace DefaultNamespace
         public static GameManager instance = null;
 
         public Text text_health_heroes;
+        public Text text_health_zombie;
         private static float HeroesHp;
         [SerializeField] private Text text_count_coins;
         
@@ -33,6 +34,8 @@ namespace DefaultNamespace
         private bool pause = false;
         private bool finish = false;
 
+        private NpcSpawner ns = new NpcSpawner();
+
         public GUIStyle[] labelStyle;
 
 
@@ -45,7 +48,7 @@ namespace DefaultNamespace
         private void  Update()
         {
             SetTextCountCoins();
-            ShowHPHeroes();
+            ShowHP();
             HideCurtain();
             if (Input.GetKey("escape"))
             {
@@ -66,10 +69,10 @@ namespace DefaultNamespace
                 Debug.Log("Button array = null");
         }
 
-        private void ShowHPHeroes()
+        private void ShowHP()
         {
-            float all_health = NpcSpawner.all_health;
-            text_health_heroes.text = $"{(int)all_health}";
+            text_health_heroes.text = $"{(int)NpcSpawner.health_heroes}";
+            text_health_zombie.text = $"{(int)NpcSpawner.health_zombie}";
         }
         
 
@@ -170,11 +173,12 @@ namespace DefaultNamespace
             {
                 SceneManager.LoadScene("FirstScene");
                 timer = 0;
+                Time.timeScale = 1;
                 count_coins = 0;
                 show = false;
             }
 
-            if (GUI.Button(new Rect(5, 450, windowRect.width - 10, 70), "Exit", NewGuiStyle()))
+            if (GUI.Button(new Rect(5, 460, windowRect.width - 10, 70), "Exit", NewGuiStyle()))
             {
                 SceneManager.LoadScene("MainMenu");
                 show = false;

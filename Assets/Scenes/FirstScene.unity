@@ -548,11 +548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1fca3d550f2cb64cbaa946c171bd374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrayZombies:
-  - {fileID: 7280538021371951920, guid: f44146601caabe944a9334a1833bdde5, type: 3}
-  - {fileID: 404731797343054810, guid: 1e70ebea5caaaf04abc07ab444822445, type: 3}
-  textHealth: {fileID: 1683122921}
-  countZombies: 2
 --- !u!114 &400483480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,6 +566,10 @@ MonoBehaviour:
   robot:
   - {fileID: 1077034796102071895, guid: 8962acd7c4dae67409cfb70321b9709e, type: 3}
   - {fileID: 6067391495305704663, guid: 5ee312c02eba4b74697212db5e9d8980, type: 3}
+  arrayZombies:
+  - {fileID: 7280538021371951920, guid: f44146601caabe944a9334a1833bdde5, type: 3}
+  - {fileID: 404731797343054810, guid: 1e70ebea5caaaf04abc07ab444822445, type: 3}
+  count_zombies: 2
 --- !u!1 &415671165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,6 +1574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text_health_heroes: {fileID: 491088240}
+  text_health_zombie: {fileID: 1683122921}
   text_count_coins: {fileID: 1458468546}
   buttons_spawn:
   - {fileID: 1232929966}
@@ -1785,6 +1785,7 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 0
     m_StretchHeight: 0
+  font: {fileID: 0}
 --- !u!1 &1138951311
 GameObject:
   m_ObjectHideFlags: 0
