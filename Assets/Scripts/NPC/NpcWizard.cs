@@ -4,7 +4,7 @@
     {
 
 
-        public IWeapon weapon => new WeaponWarder("Warder",  10,  3,  3);
+        //public IWeapon weapon => new WeaponWarder("Warder",  10,  3,  3);
 
         public override void Display_information()
         {

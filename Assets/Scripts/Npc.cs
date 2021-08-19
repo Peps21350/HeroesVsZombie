@@ -13,8 +13,6 @@ namespace DefaultNamespace
       public Slider slider_hp;
 
       public bool is_enemy = false;
-
-
       
       protected string name { get; set; }
       
@@ -29,7 +27,7 @@ namespace DefaultNamespace
       public float speedOfMovement => speed_of_movement;
 
 
-      public virtual IWeapon weapon { get; set; }
+      public IWeapon weapon { get; set; }
 
       
       [SerializeField] public float current_health;
@@ -49,15 +47,16 @@ namespace DefaultNamespace
       {
       }
 
-      public void init(string name, float health,float speed_of_movement, int price_to_spawn, int price, bool is_enemy = false)
+      public void init(string name, float health,float speed_of_movement, int price_to_spawn, int price, IWeapon weapon, bool is_enemy = false)
       {
          this.name = name;
          this.health = health;
-         this.current_health = health;
+         current_health = health;
          this.speed_of_movement = speed_of_movement;
          this.price_to_spawn = price_to_spawn;
          price_to_unlock = price;
          this.is_enemy = is_enemy;
+         this.weapon = weapon;
       }
 
       private void OnCollisionEnter2D(Collision2D other)
@@ -67,13 +66,7 @@ namespace DefaultNamespace
             Npc npc_component = other.gameObject.GetComponent<Npc>();
             npc_component.GetComponent<Rigidbody2D>().velocity = Vector2.one;
          }
-
-         if (other.gameObject.CompareTag("FinishForHero"))
-         {
-            Npc npc_component = other.gameObject.GetComponent<Npc>();
-            Debug.Log("вивід вікна про перемогу");
-            GameManager.instance.Open(false,true);
-         }
+         
          if (other.gameObject.CompareTag("FinishForZombie"))
          {
             Npc npc_component = other.gameObject.GetComponent<Npc>();
@@ -91,7 +84,7 @@ namespace DefaultNamespace
             npc_component.GetComponent<Rigidbody2D>().AddForce(new Vector2(Time.deltaTime * npc_component.speedOfMovement,0));
       }
 
- 
+
 
       // private void DestroyNPC()
       // {
@@ -112,11 +105,14 @@ namespace DefaultNamespace
             npc_component.Take_damage( attackDamage * Time.deltaTime );
          }
       }
-      
+
+      private void Start()
+      {
+         onHealthChange(health);
+      }
 
       public void Take_damage( float damage_amount )
       {
-         
          current_health -= damage_amount;
          if (current_health < 0)
          {
@@ -124,7 +120,6 @@ namespace DefaultNamespace
             Destroy(gameObject);
             return;
          }
-
          onHealthChange(health);
          updateHealthUI();
          //doDead();

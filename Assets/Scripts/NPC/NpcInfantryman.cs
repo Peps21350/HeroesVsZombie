@@ -6,7 +6,7 @@ namespace DefaultNamespace
     public class NpcInfantryman : Npc
     {
         
-        public override  IWeapon weapon => new WeaponSpear("spear", 10, 1.3f, 5f);
+       // public override  IWeapon weapon => new WeaponSpear("spear", 10, 1.3f, 5f);
         public override void Display_information()
         {
             throw new System.NotImplementedException();

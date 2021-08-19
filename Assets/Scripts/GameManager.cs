@@ -15,6 +15,7 @@ namespace DefaultNamespace
         public Text text_health_heroes;
         public Text text_health_zombie;
         private static float HeroesHp;
+        private  bool is_start_game = true;
         [SerializeField] private Text text_count_coins;
         
         [SerializeField] private Button[] buttons_spawn = null;
@@ -28,14 +29,13 @@ namespace DefaultNamespace
         public int count_coins_per_seconds = 2;
         
         private Rect windowRect = new Rect((Screen.width - 400) / 2, (Screen.height - 600) / 2, 400, 600);
-        //public new Camera camera;
 
         private bool show = false;
         private bool pause = false;
         private bool finish = false;
 
-        private NpcSpawner ns = new NpcSpawner();
-
+        private SavePrefs sp = new SavePrefs();
+        
         public GUIStyle[] labelStyle;
 
 
@@ -53,6 +53,15 @@ namespace DefaultNamespace
             if (Input.GetKey("escape"))
             {
                 Open(true,false);
+            }
+
+            if (NpcSpawner.health_zombie <= 0 && !is_start_game)
+            {
+                SavePrefs.moneyToSave = count_coins;
+                SavePrefs.Save();
+                Debug.Log("Writed");
+                is_start_game = false;
+                Open(false,true);
             }
         }
 
@@ -92,6 +101,8 @@ namespace DefaultNamespace
                 if (!isGameStopped) 
                 {
                     Debug.Log("TimerCount: " + (timer++));
+                    if(timer == 18)
+                        NpcSpawner.instance_npc_spawner.SpawnZombie(2);
                     yield return new WaitForSeconds(1);             
                 }
                 yield return null;
@@ -164,12 +175,13 @@ namespace DefaultNamespace
 
         void DialogWindow(int windowID)
         {
+            string text = windowID == 2 ? "Next level" : "Restart";
 
             GUI.Label(new Rect(5, 5, windowRect.width, 360),"",labelStyle[windowID]);
             
             Time.timeScale = 0;
             
-            if (GUI.Button(new Rect(5, 380, windowRect.width - 10, 70), "Restart", NewGuiStyle()))
+            if (GUI.Button(new Rect(5, 380, windowRect.width - 10, 70), text, NewGuiStyle()))
             {
                 SceneManager.LoadScene("FirstScene");
                 timer = 0;
@@ -178,7 +190,7 @@ namespace DefaultNamespace
                 show = false;
             }
 
-            if (GUI.Button(new Rect(5, 460, windowRect.width - 10, 70), "Exit", NewGuiStyle()))
+            if (GUI.Button(new Rect(5, 460, windowRect.width - 10, 70), "Exit to menu", NewGuiStyle()))
             {
                 SceneManager.LoadScene("MainMenu");
                 show = false;

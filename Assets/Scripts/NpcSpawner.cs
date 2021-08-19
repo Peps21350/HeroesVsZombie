@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
     public class NpcSpawner : MonoBehaviour
     {
-        
+        public static NpcSpawner instance_npc_spawner = null;
         public GameObject[] infantryman;
         public GameObject[] robot;
         public GameObject[] arrayZombies;
@@ -19,14 +21,21 @@ namespace DefaultNamespace
         private  List<NpcInfantryman> created_infantryman = new List<NpcInfantryman>();
         private List<NpcRobot> created_robot = new List<NpcRobot>();
         private List<NpcZombie> created_zombies = new List<NpcZombie>();
-        
-        
+        private List<Npc> created_npc = new List<Npc>();
+
+
         private Vector3[] places;
         
         private void Start()
         {
             places = new[]{new Vector3(1750f, 554f, 0),new Vector3(1750f, 420f, 0), new Vector3(1750f, 290f, 0)};
-            SpawnZombie();
+            SpawnZombie(count_zombies);
+        }
+        
+        public void Awake()
+        {
+            if ( instance_npc_spawner == null ) 
+                instance_npc_spawner = this;
         }
 
 
@@ -49,7 +58,7 @@ namespace DefaultNamespace
             is_infantryman = true;
         }
 
-        private void SpawnZombie()
+        public void SpawnZombie(int count_zombies)
         {
             for (int i = 0; i < count_zombies; i++)
             {
@@ -58,10 +67,10 @@ namespace DefaultNamespace
                 switch (rand)
                 {
                     case 0:
-                        Spawn(new_positions,arrayZombies,0,"Zombie", 90,100000,0,0,true,-1,created_zombies);
+                        Spawn(new_positions,arrayZombies,0,"Zombie", 90,9f,0,0,true,new WeaponPoisonousBile("poisonous bile", 12f, 1.5f, 2f),created_zombies);
                         break;
                     case 1:
-                        Spawn(new_positions,arrayZombies,1,"Hard zombie", 120,70000,0,0,true,-1,created_zombies);
+                        Spawn(new_positions,arrayZombies,1,"Hard zombie", 120,8f,0,0,true,new WeaponPoisonousBile("poisonous bile", 14f, 2f, 2f),created_zombies);
                         break;
                 }
             }
@@ -73,13 +82,13 @@ namespace DefaultNamespace
             {
                 GameManager.count_coins -= 10;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,infantryman,0,"Infantryman", 75,600000,10,0,false,1,created_infantryman);
+                Spawn(coords_spawn,infantryman,0,"Infantryman", 75,10f,10,0,false,new WeaponSpear("spear", 10, 1.3f, 5f),created_infantryman);
             }
             else
             {
                 GameManager.count_coins -= 35;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,infantryman,1,"Infantryman Hard", 150,400000,35,60,false,1,created_infantryman);
+                Spawn(coords_spawn,infantryman,1,"Infantryman Hard", 150,9f,35,60,false,new WeaponSpear("spear", 12, 2f, 5f),created_infantryman);
             }
 
         }
@@ -90,13 +99,13 @@ namespace DefaultNamespace
             {
                 GameManager.count_coins -= 15;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn, robot, 0, "Robot1", 90, 600000, 15, 15, false,1,created_robot);
+                Spawn(coords_spawn, robot, 0, "Robot1", 90, 10, 15, 15, false,new WeaponM4("M4",  12,  3.2f,  6),created_robot);
             }
             else
             {
                 GameManager.count_coins -= 25;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,robot,1,"Robot2", 50,400000,25,30,false,1,created_robot);
+                Spawn(coords_spawn,robot,1,"Robot2", 60,10,25,30,false,new WeaponM4("M4",  15,  5,  6),created_robot);
             }
 
         }
@@ -147,18 +156,36 @@ namespace DefaultNamespace
         }
         
         
-        public void Spawn<T>(Vector3 result_coords,GameObject[] mass_game_objects,int number_of_hero, string name_hero,float health, float speed, int price_to_spawn, int price,bool is_enemy, int side_of_the_movement, List<T> list) where  T : Npc
+        public void Spawn<T>(Vector3 result_coords,GameObject[] mass_game_objects,int number_of_hero, string name_hero,float health, float speed, int price_to_spawn, int price,bool is_enemy,IWeapon weapon, List<T> list) where  T : Npc
         {
             T npc = Instantiate(mass_game_objects[number_of_hero], result_coords, Quaternion.identity).GetComponent<T>();
             npc.transform.localScale = new Vector3(mass_game_objects[number_of_hero].transform.localScale.x, mass_game_objects[number_of_hero].transform.localScale.y, 1);
 
-            npc.init(name_hero, health,speed,price_to_spawn,price,is_enemy);
-        
-            npc.GetComponent<Rigidbody2D>().AddForce(new Vector2(side_of_the_movement * Time.deltaTime * npc.speedOfMovement,0));
+            npc.init(name_hero, health,speed,price_to_spawn,price,weapon,is_enemy);
+            
             npc.onHealthChange += _ =>   AllHPNPC();
             list.Add(npc);
+            created_npc.Add(npc);
         }
-        
+
+        private void FixedUpdate()
+        {
+            if (created_npc != null)
+            {
+                foreach (var npc in created_npc)
+                {
+                    if (npc != null)
+                    {
+                        float side_to_move = npc.is_enemy == false? 1 : -1;
+                        npc.GetComponent<Rigidbody2D>().AddForce(new Vector2(side_to_move  * npc.speedOfMovement,0));
+                    }
+                }
+            }
+            
+            
+            
+
+        }
 
         public  void AllHPNPC()
         {

@@ -6,7 +6,7 @@ namespace DefaultNamespace
     public class NpcBowman : Npc
     {
         
-        public  IWeapon weapon => new WeaponBow("Bow",  7,  3,  5);
+        //public  IWeapon weapon => new WeaponBow("Bow",  7,  3,  5);
         
         public override void Display_information()
         {

@@ -102,7 +102,7 @@ MonoBehaviour:
   is_enemy: 0
   health: 90
   attack_damage: 0
-  speed_of_movement: 400000
+  speed_of_movement: 90000
   current_health: 90
   price_to_unlock: 15
   price_to_spawn: 15
