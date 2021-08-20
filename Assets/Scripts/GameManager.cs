@@ -18,6 +18,7 @@ namespace DefaultNamespace
         private  bool is_start_game = true;
         [SerializeField] private Text text_count_coins;
         
+
         [SerializeField] private Button[] buttons_spawn = null;
         
         private bool isGameStopped = false;
@@ -34,7 +35,7 @@ namespace DefaultNamespace
         private bool pause = false;
         private bool finish = false;
 
-        private SavePrefs sp = new SavePrefs();
+        //private SavePrefs sp = new SavePrefs();
         
         public GUIStyle[] labelStyle;
 
@@ -44,7 +45,9 @@ namespace DefaultNamespace
             if ( instance == null ) 
                 instance = this;
         }
-        
+
+       
+
         private void  Update()
         {
             SetTextCountCoins();

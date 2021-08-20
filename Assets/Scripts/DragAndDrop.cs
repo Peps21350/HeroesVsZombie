@@ -28,7 +28,9 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        MenuManager.instance.ShowInformation();
         Debug.Log("On Pointer Down");
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)

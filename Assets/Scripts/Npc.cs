@@ -83,17 +83,7 @@ namespace DefaultNamespace
          else
             npc_component.GetComponent<Rigidbody2D>().AddForce(new Vector2(Time.deltaTime * npc_component.speedOfMovement,0));
       }
-
-
-
-      // private void DestroyNPC()
-      // {
-      //    Npc npc_component = gameObject.GetComponent<Npc>();
-      //    if(npc_component.transform.position.x > 1700 || npc_component.transform.position.x < 30 )
-      //       Destroy(npc_component);
-      // }
-
-
+      
       private void OnCollisionStay2D(Collision2D other)
       {
          if (other.gameObject.CompareTag("Npc"))
@@ -132,9 +122,12 @@ namespace DefaultNamespace
          slider_hp.value = current_health;
       }
 
-      public virtual void Display_information()
+      public void Display_information()
       {
-         
+         string information_about_hero = $"Name: {name}" +
+                                         $"Health: {health}" +
+                                         $"Speed: {speed_of_movement}" +
+                                         $"Price to spawn: {price_to_spawn}";
       }
    }
 }

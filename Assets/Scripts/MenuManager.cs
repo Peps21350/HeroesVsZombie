@@ -17,7 +17,21 @@ public class MenuManager : MonoBehaviour
     public GameObject button_options;
     public Text text_amount_coin;
     public GameObject shop_elements;
+    public static MenuManager instance = null;
+    
+     public Text text_information_about_hero;
 
+    public void ShowInformation()
+    {
+        text_information_about_hero.text = "Health: 50";
+        
+    }
+    
+    public void Awake()
+    {
+        if ( instance == null ) 
+            instance = this;
+    }
 
     private void Update()
     {
