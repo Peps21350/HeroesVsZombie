@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6622244318628169476}
   - component: {fileID: 6532356316369838453}
-  - component: {fileID: 6127127292821852653}
+  - component: {fileID: 7203609198926693598}
   - component: {fileID: 2718679349859589255}
   - component: {fileID: 3199727346970076293}
   m_Layer: 9
@@ -361,7 +361,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6127127292821852653
+--- !u!114 &7203609198926693598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -370,17 +370,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6067391495305704663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae70443085d445268aaf991c9d50b08a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c36036d44120454e9a5b50c698619cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider_hp: {fileID: 8302847706848681693}
   is_enemy: 0
-  health: 50
+  health: 0
   attack_damage: 0
-  speed_of_movement: 110000
-  current_health: 50
-  price_to_unlock: 30
-  price_to_spawn: 25
+  speed_of_movement: 0
+  current_health: 0
+  price_to_unlock: 0
+  price_to_spawn: 0
 --- !u!50 &2718679349859589255
 Rigidbody2D:
   serializedVersion: 4

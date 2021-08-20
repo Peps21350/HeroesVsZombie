@@ -11,6 +11,8 @@ TagManager:
   - Npc
   - FinishForZombie
   - FinishForHero
+  - Infantryman2
+  - ItemSlot
   layers:
   - Default
   - TransparentFX

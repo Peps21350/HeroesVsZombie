@@ -421,7 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7280538021371951922}
   - component: {fileID: 7280538021371951921}
-  - component: {fileID: 7280538021371951933}
+  - component: {fileID: 1322354532357206503}
   - component: {fileID: 4700369854765028674}
   - component: {fileID: 4542324995245348292}
   m_Layer: 10
@@ -497,7 +497,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7280538021371951933
+--- !u!114 &1322354532357206503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,15 +506,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7280538021371951920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cac7df40cdc427395f3f2a25e54ec67, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c36036d44120454e9a5b50c698619cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider_hp: {fileID: 1666468058766554412}
   is_enemy: 0
-  health: 90
+  health: 0
   attack_damage: 0
-  speed_of_movement: 1000000
-  current_health: 7.5
+  speed_of_movement: 0
+  current_health: 0
   price_to_unlock: 0
   price_to_spawn: 0
 --- !u!70 &4700369854765028674

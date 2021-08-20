@@ -18,9 +18,9 @@ namespace DefaultNamespace
         public static float health_heroes;
         public static float health_zombie;
         [SerializeField]private int count_zombies;
-        private  List<NpcInfantryman> created_infantryman = new List<NpcInfantryman>();
-        private List<NpcRobot> created_robot = new List<NpcRobot>();
-        private List<NpcZombie> created_zombies = new List<NpcZombie>();
+        private List<Npc> created_heroes = new List<Npc>();
+        private List<Npc> created_zombies = new List<Npc>();
+        
         private List<Npc> created_npc = new List<Npc>();
 
 
@@ -82,13 +82,13 @@ namespace DefaultNamespace
             {
                 GameManager.count_coins -= 10;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,infantryman,0,"Infantryman", 75,10f,10,0,false,new WeaponSpear("spear", 10, 1.3f, 5f),created_infantryman);
+                Spawn(coords_spawn,infantryman,0,"Infantryman", 75,10f,10,0,false,new WeaponSpear("spear", 10, 1.3f, 5f),created_heroes);
             }
             else
             {
                 GameManager.count_coins -= 35;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,infantryman,1,"Infantryman Hard", 150,9f,35,60,false,new WeaponSpear("spear", 12, 2f, 5f),created_infantryman);
+                Spawn(coords_spawn,infantryman,1,"Infantryman Hard", 150,9f,35,60,false,new WeaponSpear("spear", 12, 2f, 5f),created_heroes);
             }
 
         }
@@ -99,13 +99,13 @@ namespace DefaultNamespace
             {
                 GameManager.count_coins -= 15;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn, robot, 0, "Robot1", 90, 10, 15, 15, false,new WeaponM4("M4",  12,  3.2f,  6),created_robot);
+                Spawn(coords_spawn, robot, 0, "Robot1", 90, 10, 15, 15, false,new WeaponM4("M4",  12,  3.2f,  6),created_heroes);
             }
             else
             {
                 GameManager.count_coins -= 25;
                 GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,robot,1,"Robot2", 60,10,25,30,false,new WeaponM4("M4",  15,  5,  6),created_robot);
+                Spawn(coords_spawn,robot,1,"Robot2", 60,10,25,30,false,new WeaponM4("M4",  15,  5,  6),created_heroes);
             }
 
         }
@@ -168,6 +168,15 @@ namespace DefaultNamespace
             created_npc.Add(npc);
         }
 
+
+        // public void ShowInformations()
+        // {
+        //     foreach (var hero in created_heroes)
+        //     {
+        //         hero.Display_information();
+        //     }
+        // }
+
         private void FixedUpdate()
         {
             if (created_npc != null)
@@ -181,30 +190,18 @@ namespace DefaultNamespace
                     }
                 }
             }
-            
-            
-            
-
         }
 
         public  void AllHPNPC()
         {
             //float all_health = 0;
-            float all_health_infantryman = 0;
-            float all_health_robot = 0;
+            float all_health_heroes = 0;
             float all_health_zombie = 0;
-            if (created_infantryman != null)
+            if (created_heroes != null)
             {
-                foreach (var infantryman in created_infantryman)
+                foreach (var hero in created_heroes)
                 {
-                    all_health_infantryman += infantryman.currentHealth;
-                }
-            }
-            if (created_robot != null)
-            {
-                foreach (var robot in created_robot)
-                {
-                    all_health_robot += robot.currentHealth;
+                    all_health_heroes += hero.currentHealth;
                 }
             }
             if (created_zombies != null)
@@ -214,7 +211,7 @@ namespace DefaultNamespace
                     all_health_zombie+= zombie.currentHealth;
                 }
             }
-            health_heroes = all_health_infantryman + all_health_robot;
+            health_heroes = all_health_heroes;
             health_zombie = all_health_zombie;
         }
         

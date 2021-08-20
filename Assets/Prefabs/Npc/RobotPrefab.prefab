@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6302951214246023501}
   - component: {fileID: 6951606098636406802}
-  - component: {fileID: 7329942215749947231}
+  - component: {fileID: 4115438695794998267}
   - component: {fileID: 8409669740384001261}
   - component: {fileID: 3567416120901870503}
   m_Layer: 8
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329942215749947231
+--- !u!114 &4115438695794998267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,17 +95,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1077034796102071895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae70443085d445268aaf991c9d50b08a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c36036d44120454e9a5b50c698619cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider_hp: {fileID: 4432748395807158954}
   is_enemy: 0
-  health: 90
+  health: 0
   attack_damage: 0
-  speed_of_movement: 90000
-  current_health: 90
-  price_to_unlock: 15
-  price_to_spawn: 15
+  speed_of_movement: 0
+  current_health: 0
+  price_to_unlock: 0
+  price_to_spawn: 0
 --- !u!70 &8409669740384001261
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

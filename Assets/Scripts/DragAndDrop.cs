@@ -23,14 +23,11 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,
     {
         rect_transform = GetComponent<RectTransform>();
         canvas_group = GetComponent<CanvasGroup>();
-        //defaultPos = GetComponent<RectTransform>().localPosition;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        MenuManager.instance.ShowInformation();
         Debug.Log("On Pointer Down");
-        
     }
 
     public void OnBeginDrag(PointerEventData eventData)

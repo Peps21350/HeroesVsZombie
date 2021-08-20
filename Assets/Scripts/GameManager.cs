@@ -18,7 +18,6 @@ namespace DefaultNamespace
         private  bool is_start_game = true;
         [SerializeField] private Text text_count_coins;
         
-
         [SerializeField] private Button[] buttons_spawn = null;
         
         private bool isGameStopped = false;
@@ -27,6 +26,7 @@ namespace DefaultNamespace
         public GameObject[] raw_image = new GameObject[4];
         
         public static int count_coins;
+        public static int count_money;
         public int count_coins_per_seconds = 2;
         
         private Rect windowRect = new Rect((Screen.width - 400) / 2, (Screen.height - 600) / 2, 400, 600);
@@ -60,12 +60,17 @@ namespace DefaultNamespace
 
             if (NpcSpawner.health_zombie <= 0 && !is_start_game)
             {
-                SavePrefs.moneyToSave = count_coins;
+                count_money += count_coins;
+                SavePrefs.moneyToSave = count_money;
                 SavePrefs.Save();
                 Debug.Log("Writed");
-                is_start_game = false;
                 Open(false,true);
             }
+            else
+            {
+                is_start_game = false;
+            }
+            
         }
 
         public void ShowButtonsSpawn(bool state)
