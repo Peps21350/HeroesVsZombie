@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using DefaultNamespace;
 
 public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEndDragHandler,IDragHandler, IDropHandler
 {
@@ -13,6 +14,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,
     private CanvasGroup canvas_group;
     public Vector3 defaultPos;
     public bool dropped_on_slot;
+
+    public NpcId npc_id = NpcId.NONE;
 
     private void Start()
     {

@@ -464,7 +464,6 @@ GameObject:
   - component: {fileID: 400483476}
   - component: {fileID: 400483478}
   - component: {fileID: 400483477}
-  - component: {fileID: 400483479}
   - component: {fileID: 400483480}
   m_Layer: 0
   m_Name: Panel
@@ -535,18 +534,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400483475}
   m_CullTransparentMesh: 1
---- !u!114 &400483479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400483475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1fca3d550f2cb64cbaa946c171bd374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &400483480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1468,7 +1455,12 @@ MonoBehaviour:
   - {fileID: 1232929966}
   - {fileID: 1643162348}
   - {fileID: 462000396}
-  raw_image:
+  allowed_heroes:
+  - {fileID: 1084213014}
+  - {fileID: 297109600}
+  - {fileID: 1599427582}
+  - {fileID: 1836263642}
+  block_image_for_heroes:
   - {fileID: 1200962444}
   - {fileID: 1138951311}
   - {fileID: 778716943}
@@ -2472,7 +2464,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1535507941}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1128181694}
+        m_TargetAssemblyTypeName: DefaultNamespace.GameManager, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1535507941
 MonoBehaviour:
   m_ObjectHideFlags: 0

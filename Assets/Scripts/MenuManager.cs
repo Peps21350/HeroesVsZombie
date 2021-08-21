@@ -99,8 +99,6 @@ public class MenuManager : MonoBehaviour
                 block_hero[i].SetActive(false);
                 buttons_buy[i].SetActive(false);
             }
-
-            
         }
     }
 

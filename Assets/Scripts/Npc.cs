@@ -10,6 +10,8 @@ namespace DefaultNamespace
    {
       public event Action<float> onHealthChange = delegate {};
 
+      public NpcId npc_id = NpcId.NONE;
+      
       public Slider slider_hp;
 
       public bool is_enemy = false;
@@ -129,5 +131,14 @@ namespace DefaultNamespace
                                          $"Speed: {speed_of_movement}" +
                                          $"Price to spawn: {price_to_spawn}";
       }
+   }
+
+   public enum NpcId
+   {
+      NONE,
+      INFANTRYMAN,
+      ROBOT,
+      ROBOT2,
+      INFANTRYMAN2
    }
 }
