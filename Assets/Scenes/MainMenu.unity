@@ -691,7 +691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &70923564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3470,7 +3470,6 @@ MonoBehaviour:
   - {fileID: 260018778}
   menu_buttons: {fileID: 1777460445}
   button_back: {fileID: 1217785902}
-  button_options: {fileID: 70923563}
   text_amount_coin: {fileID: 2113352159}
   shop_elements: {fileID: 1527076172}
   text_information_about_hero: {fileID: 370245003}

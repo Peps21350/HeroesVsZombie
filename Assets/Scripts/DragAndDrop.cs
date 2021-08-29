@@ -1,21 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
 using DefaultNamespace;
 
 public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IEndDragHandler,IDragHandler, IDropHandler
 {
     
     [SerializeField] private Canvas canvas;
-    private RectTransform rect_transform;
-    private CanvasGroup canvas_group;
+    private RectTransform _rectTransform;
+    private CanvasGroup _canvasGroup;
     public Vector3 defaultPos;
     public bool dropped_on_slot;
 
-    public NpcId npc_id = NpcId.NONE;
+    public NpcId npc_id = NpcId.None;
 
     private void Start()
     {
@@ -24,8 +20,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,
     
     private void Awake()
     {
-        rect_transform = GetComponent<RectTransform>();
-        canvas_group = GetComponent<CanvasGroup>();
+        _rectTransform = GetComponent<RectTransform>();
+        _canvasGroup = GetComponent<CanvasGroup>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -36,16 +32,16 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
-        canvas_group.alpha = .6f;
-        canvas_group.blocksRaycasts = false;
+        _canvasGroup.alpha = .6f;
+        _canvasGroup.blocksRaycasts = false;
         eventData.pointerDrag.GetComponent<DragAndDrop>().dropped_on_slot = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
-        canvas_group.alpha = 1f;
-        canvas_group.blocksRaycasts = true;
+        _canvasGroup.alpha = 1f;
+        _canvasGroup.blocksRaycasts = true;
         if (dropped_on_slot == false)
         {
             GetComponent<RectTransform>().transform.position = defaultPos - new Vector3(-947.9996f,-434f,0f);
@@ -55,7 +51,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("OnDrag");
-        rect_transform.anchoredPosition += eventData.delta;
+        _rectTransform.anchoredPosition += eventData.delta;
     }
 
     public void OnDrop(PointerEventData eventData)

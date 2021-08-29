@@ -8,29 +8,27 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    // public GameObject buttonPlay;
     public GameObject[] block_hero;
     public GameObject[] buttons_buy;
     public GameObject menu_buttons;
     public GameObject button_back;
-    public GameObject button_options;
     public Text text_amount_coin;
     public GameObject shop_elements;
     
-    public static MenuManager instance = null;
+
     
-    private List<int> price = new List<int>(3);
-    public static List<bool> state_of_purchase = new List<bool>(3);
+    private List<int> _price = new List<int>(3);
+    public static List<bool> StateOfPurchase = new List<bool>();
     
     
      public Text text_information_about_hero;
 
-    public void ShowInformation(string name, float health, float speed_of_movement, int price_to_spawn,int damage)
+    public void ShowInformation(string name, float health, float speedOfMovement, int priceToSpawn,int damage)
     {
         text_information_about_hero.text = $"Name: {name}\n" +
                                            $"Health: {health}\n" +
-                                           $"Speed: {speed_of_movement}\n" +
-                                           $"Price to spawn: {price_to_spawn}\n"+
+                                           $"Speed: {speedOfMovement}\n" +
+                                           $"Price to spawn: {priceToSpawn}\n"+
                                            $"Damage: {damage}";
 
     }
@@ -51,13 +49,7 @@ public class MenuManager : MonoBehaviour
     {
         ShowInformation("Robot v2",60,10,25,12);
     }
-
-    public void Awake()
-    {
-        if ( instance == null ) 
-            instance = this;
-    }
-
+    
     public void WantBuyRobot()
     {
         BuyHero(0);
@@ -73,12 +65,12 @@ public class MenuManager : MonoBehaviour
 
     private void BuyHero(int number)
     {
-        if (GameManager.count_money >= price[number] && state_of_purchase[number] == false)
+        if (GameManager.CountMoney >= _price[number] && StateOfPurchase[number] == false)
         {
-            SavePrefs.moneyToSave -= price[number];
-            GameManager.count_money -= price[number];
-            state_of_purchase[number] = true;
-            ChangeStateBeforeWrite();
+            SavePrefs.MoneyToSave -= _price[number];
+            GameManager.CountMoney -= _price[number];
+            StateOfPurchase[number] = true;
+            ChangeStatusBeforeRecording();
             block_hero[number].SetActive(false);
             SavePrefs.Save();
         }
@@ -86,15 +78,15 @@ public class MenuManager : MonoBehaviour
         else
         {
             Debug.Log("No money");
-            text_information_about_hero.text = $"Not enough money\nIts cost: {price[number]}";
+            text_information_about_hero.text = $"Not enough money\nIts cost: {_price[number]}";
         }
     }
 
     private void ShowLock()
     {
-        for (int i = 0; i < state_of_purchase.Count; i++)
+        for (int i = 0; i < StateOfPurchase.Count && i <= 2; i++)
         {
-            if (state_of_purchase[i])
+            if (StateOfPurchase[i])
             {
                 block_hero[i].SetActive(false);
                 buttons_buy[i].SetActive(false);
@@ -103,18 +95,21 @@ public class MenuManager : MonoBehaviour
     }
 
 
-    public void ChangeStateBeforeWrite()
+    public void ChangeStatusBeforeRecording()
     {
-        SavePrefs.stateitem[0] = Convert.ToString(state_of_purchase[0]);
-        SavePrefs.stateitem[1] = Convert.ToString(state_of_purchase[1]);
-        SavePrefs.stateitem[2] = Convert.ToString(state_of_purchase[2]);
+        SavePrefs.StateItem[0] = Convert.ToString(StateOfPurchase[0]);
+        SavePrefs.StateItem[1] = Convert.ToString(StateOfPurchase[1]);
+        SavePrefs.StateItem[2] = Convert.ToString(StateOfPurchase[2]);
     }
     
 
     private void Update()
     {
-        text_amount_coin.text = GameManager.count_money.ToString();
-        ShowLock();
+        text_amount_coin.text = GameManager.CountMoney.ToString();
+        if (button_back.activeInHierarchy)
+        {
+            ShowLock();
+        }
     }
 
     private void Start()
@@ -125,9 +120,9 @@ public class MenuManager : MonoBehaviour
 
     private void AddPrice()
     {
-        price.Add(25);
-        price.Add(35);
-        price.Add(50);
+        _price.Add(25);
+        _price.Add(35);
+        _price.Add(50);
     }
 
     public void Exit()
@@ -159,11 +154,5 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("FirstScene");
-        
     }
-    
-
-
-
-
 }

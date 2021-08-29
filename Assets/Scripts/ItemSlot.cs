@@ -7,20 +7,20 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
-    public NpcId current_selected = NpcId.NONE;
+    public NpcId current_selected = NpcId.None;
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop");
         if (eventData.pointerDrag == null)
             return;
         
-        var npc_script = eventData.pointerDrag.GetComponent<DragAndDrop>();
+        var npcScript = eventData.pointerDrag.GetComponent<DragAndDrop>();
 
-        npc_script.dropped_on_slot = true;
-        if (current_selected != NpcId.NONE)
-            GameManager.selected_npc.Remove(current_selected);
+        npcScript.dropped_on_slot = true;
+        if (current_selected != NpcId.None)
+            GameManager.SelectedNpc.Remove(current_selected);
 
-        GameManager.selected_npc.Add(npc_script.npc_id);
+        GameManager.SelectedNpc.Add(npcScript.npc_id);
         //Debug.Log($"{GameManager.selected_npc}");
 
         eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =

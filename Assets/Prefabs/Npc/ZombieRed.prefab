@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c36036d44120454e9a5b50c698619cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 2697797754906240087, guid: 7e606ad66b71a4f4c8f24bc1ddc819b5, type: 3}
+  npc_id: 0
   slider_hp: {fileID: 6580314180993781824}
   is_enemy: 0
   health: 0

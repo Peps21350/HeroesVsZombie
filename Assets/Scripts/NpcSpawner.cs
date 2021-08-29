@@ -7,212 +7,199 @@ namespace DefaultNamespace
 {
     public class NpcSpawner : MonoBehaviour
     {
-        public static NpcSpawner instance_npc_spawner = null;
         public GameObject[] infantryman;
         public GameObject[] robot;
         public GameObject[] arrayZombies;
-        private bool state_spawn;
-        private bool type_npc;
-        private bool is_infantryman; 
-        private int number_npc;
-        public static float health_heroes;
-        public static float health_zombie;
-        [SerializeField]private int count_zombies;
-        private List<Npc> created_heroes = new List<Npc>();
-        private List<Npc> created_zombies = new List<Npc>();
+        [SerializeField] private GameManager gameManager;
         
-        private List<Npc> created_npc = new List<Npc>();
-
-
-        private Vector3[] places;
+        private bool _stateSpawn;
+        private bool _typeNpc;
+        private bool _isInfantryman; 
+        private int _numberNpc;
+        public static float HealthHeroes;
+        public static float HealthZombie;
+        [SerializeField]private int count_zombies;
+        
+        private List<Npc> _createdHeroes = new List<Npc>();
+        [NonSerialized]public List<Npc> createdZombies = new List<Npc>();
+        private List<Npc> _createdNpc = new List<Npc>();
+        
+        private Vector3[] _places;
+        
         
         private void Start()
         {
-            places = new[]{new Vector3(1750f, 554f, 0),new Vector3(1750f, 420f, 0), new Vector3(1750f, 290f, 0)};
+            _places = new[]{new Vector3(1750f, 554f, 0),new Vector3(1750f, 420f, 0), new Vector3(1750f, 290f, 0)};
             SpawnZombie(count_zombies);
-        }
-        
-        public void Awake()
-        {
-            if ( instance_npc_spawner == null ) 
-                instance_npc_spawner = this;
         }
 
 
         public void ClickOnButtonWithNPC()
         {
-            number_npc = 1;
-            state_spawn = true;
-            GameManager.instance.ShowButtonsSpawn(true);
+            _numberNpc = 1;
+            _stateSpawn = true;
+            gameManager.ShowButtonsSpawn(true);
         }
         public void ClickOnButtonWithNPC2()
         {
-            number_npc = 2;
-            state_spawn = true;
-            GameManager.instance.ShowButtonsSpawn(true);
+            _numberNpc = 2;
+            _stateSpawn = true;
+            gameManager.ShowButtonsSpawn(true);
             
         }
         
         public void OnButtonClickInfantryman()
         {
-            is_infantryman = true;
+            _isInfantryman = true;
         }
 
-        public void SpawnZombie(int count_zombies)
+        public void SpawnZombie(int countZombies)
         {
-            for (int i = 0; i < count_zombies; i++)
+            for (int i = 0; i < countZombies; i++)
             {
                 int rand = Random.Range(0, arrayZombies.Length);
-                Vector3 new_positions = places[Random.Range(0, places.Length)];
+                Vector3 newPositions = _places[Random.Range(0, _places.Length)];
                 switch (rand)
                 {
                     case 0:
-                        Spawn(new_positions,arrayZombies,0,"Zombie", 90,9f,0,0,true,new WeaponPoisonousBile("poisonous bile", 12f, 1.5f, 2f),created_zombies);
+                        Spawn(newPositions,arrayZombies,0,"Zombie", 90,9f,0,0,true,new WeaponPoisonousBile("poisonous bile", 12f, 1.5f, 2f),createdZombies);
                         break;
                     case 1:
-                        Spawn(new_positions,arrayZombies,1,"Hard zombie", 120,8f,0,0,true,new WeaponPoisonousBile("poisonous bile", 14f, 2f, 2f),created_zombies);
+                        Spawn(newPositions,arrayZombies,1,"Hard zombie", 120,8f,0,0,true,new WeaponPoisonousBile("poisonous bile", 14f, 2f, 2f),createdZombies);
                         break;
                 }
             }
         }
 
-        private void SpawnInfantryman(Vector3 coords_spawn, int number_npc)
+        private void SpawnInfantryman(Vector3 coordsSpawn, int numberNpc)
         {
-            if (number_npc == 1)
+            if (numberNpc == 1)
             {
-                GameManager.count_coins -= 10;
-                GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,infantryman,0,"Infantryman", 75,10f,10,0,false,new WeaponSpear("spear", 10, 1.3f, 5f),created_heroes);
+                GameManager.CountCoins -= 10;
+                GameManager.GameTimer = GameManager.CountCoins / 2;
+                Spawn(coordsSpawn,infantryman,0,"Infantryman", 75,10f,10,0,false,new WeaponSpear("spear", 10, 1.3f, 5f),_createdHeroes);
             }
             else
             {
-                GameManager.count_coins -= 35;
-                GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,infantryman,1,"Infantryman Hard", 150,9f,35,60,false,new WeaponSpear("spear", 12, 2f, 5f),created_heroes);
+                GameManager.CountCoins -= 35;
+                GameManager.GameTimer = GameManager.CountCoins / 2;
+                Spawn(coordsSpawn,infantryman,1,"Infantryman Hard", 150,9f,35,60,false,new WeaponSpear("spear", 12, 2f, 5f),_createdHeroes);
             }
 
         }
         
-        private void SpawnRobot(Vector3 coords_spawn, int number_npc)
+        private void SpawnRobot(Vector3 coordsSpawn, int numberNpc)
         {
-            if (number_npc == 1)
+            if (numberNpc == 1)
             {
-                GameManager.count_coins -= 15;
-                GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn, robot, 0, "Robot1", 90, 10, 15, 15, false,new WeaponM4("M4",  12,  3.2f,  6),created_heroes);
+                GameManager.CountCoins -= 15;
+                GameManager.GameTimer = GameManager.CountCoins / 2;
+                Spawn(coordsSpawn, robot, 0, "Robot1", 90, 10, 15, 15, false,new WeaponM4("M4",  12,  3.2f,  6),_createdHeroes);
             }
             else
             {
-                GameManager.count_coins -= 25;
-                GameManager.timer = GameManager.count_coins / 2;
-                Spawn(coords_spawn,robot,1,"Robot2", 60,10,25,30,false,new WeaponM4("M4",  15,  5,  6),created_heroes);
+                GameManager.CountCoins -= 25;
+                GameManager.GameTimer = GameManager.CountCoins / 2;
+                Spawn(coordsSpawn,robot,1,"Robot2", 60,10,25,30,false,new WeaponM4("M4",  15,  5,  6),_createdHeroes);
             }
 
         }
         
-        public void  SpawnNPCUp()
+        public void  SpawnNpcUp()
         {
-            Vector3 result = new Vector3(250f, 554f, 0);
-            if (state_spawn)
+            Vector3 result = new Vector3(150f, 554f, 0);
+            if (_stateSpawn)
             {
-                if(is_infantryman)
-                    SpawnInfantryman(result,number_npc);
+                if(_isInfantryman)
+                    SpawnInfantryman(result,_numberNpc);
                 else
-                    SpawnRobot(result,number_npc);
-                is_infantryman = false;
-                GameManager.instance.ShowButtonsSpawn(false);
+                    SpawnRobot(result,_numberNpc);
+                _isInfantryman = false;
+                gameManager.ShowButtonsSpawn(false);
             }
-            state_spawn = false;
+            _stateSpawn = false;
         }
         
-        public void SpawnNPCMidle()
+        public void SpawnNpcMidle()
         {
-            Vector3 result = new Vector3(250f, 420f, 0);
-            if (state_spawn)
+            Vector3 result = new Vector3(150f, 420f, 0);
+            if (_stateSpawn)
             {
-                if(is_infantryman)
-                    SpawnInfantryman(result,number_npc);
+                if(_isInfantryman)
+                    SpawnInfantryman(result,_numberNpc);
                 else
-                    SpawnRobot(result,number_npc);
-                is_infantryman = false;
-                GameManager.instance.ShowButtonsSpawn(false);
+                    SpawnRobot(result,_numberNpc);
+                _isInfantryman = false;
+                gameManager.ShowButtonsSpawn(false);
             }
-            state_spawn = false;
+            _stateSpawn = false;
         }
         
-        public void  SpawnNPCDown()
+        public void  SpawnNpcDown()
         {
-            Vector3 result = new Vector3(250f, 290f, 0);
-            if (state_spawn)
+            Vector3 result = new Vector3(150f, 290f, 0);
+            if (_stateSpawn)
             {
-                if(is_infantryman)
-                    SpawnInfantryman(result,number_npc);
+                if(_isInfantryman)
+                    SpawnInfantryman(result,_numberNpc);
                 else
-                    SpawnRobot(result,number_npc);
-                is_infantryman = false;
-                GameManager.instance.ShowButtonsSpawn(false);
+                    SpawnRobot(result,_numberNpc);
+                _isInfantryman = false;
+                gameManager.ShowButtonsSpawn(false);
             }
-            state_spawn = false;
+            _stateSpawn = false;
         }
         
         
-        public void Spawn<T>(Vector3 result_coords,GameObject[] mass_game_objects,int number_of_hero, string name_hero,float health, float speed, int price_to_spawn, int price,bool is_enemy,IWeapon weapon, List<T> list) where  T : Npc
+        public void Spawn<T>(Vector3 resultCoords,GameObject[] massGameObjects,int numberOfHero, string nameHero,float health, float speed, int priceToSpawn, int price,bool isEnemy,IWeapon weapon, List<T> list) where  T : Npc
         {
-            T npc = Instantiate(mass_game_objects[number_of_hero], result_coords, Quaternion.identity).GetComponent<T>();
-            npc.transform.localScale = new Vector3(mass_game_objects[number_of_hero].transform.localScale.x, mass_game_objects[number_of_hero].transform.localScale.y, 1);
+            T npc = Instantiate(massGameObjects[numberOfHero], resultCoords, Quaternion.identity).GetComponent<T>();
+            npc.transform.localScale = new Vector3(massGameObjects[numberOfHero].transform.localScale.x, massGameObjects[numberOfHero].transform.localScale.y, 1);
 
-            npc.init(name_hero, health,speed,price_to_spawn,price,weapon,is_enemy);
+            npc.Init(nameHero, health,speed,priceToSpawn,price,weapon,isEnemy);
             
-            npc.onHealthChange += _ =>   AllHPNPC();
+            npc.HealthChange += _ =>   AllHpNpc();
             list.Add(npc);
-            created_npc.Add(npc);
+            _createdNpc.Add(npc);
         }
 
-
-        // public void ShowInformations()
-        // {
-        //     foreach (var hero in created_heroes)
-        //     {
-        //         hero.Display_information();
-        //     }
-        // }
+        private void NpcMovement()
+        {
+            if (_createdNpc == null) return;
+            foreach (var npc in _createdNpc)
+            {
+                if (npc == null) continue;
+                float sideToMove = npc.is_enemy == false? 2f : -1;
+                npc.GetComponent<Rigidbody2D>().AddForce(new Vector2(sideToMove  * npc.speedOfMovement,0));
+            }
+        }
 
         private void FixedUpdate()
         {
-            if (created_npc != null)
-            {
-                foreach (var npc in created_npc)
-                {
-                    if (npc != null)
-                    {
-                        float side_to_move = npc.is_enemy == false? 1 : -1;
-                        npc.GetComponent<Rigidbody2D>().AddForce(new Vector2(side_to_move  * npc.speedOfMovement,0));
-                    }
-                }
-            }
+            NpcMovement();
         }
 
-        public  void AllHPNPC()
+        public  void AllHpNpc()
         {
             //float all_health = 0;
-            float all_health_heroes = 0;
-            float all_health_zombie = 0;
-            if (created_heroes != null)
+            float allHealthHeroes = 0;
+            float allHealthZombie = 0;
+            if (_createdHeroes != null)
             {
-                foreach (var hero in created_heroes)
+                foreach (var hero in _createdHeroes)
                 {
-                    all_health_heroes += hero.currentHealth;
+                    allHealthHeroes += hero.currentHealth;
                 }
             }
-            if (created_zombies != null)
+            if (createdZombies != null)
             {
-                foreach (var zombie in created_zombies)
+                foreach (var zombie in createdZombies)
                 {
-                    all_health_zombie+= zombie.currentHealth;
+                    allHealthZombie+= zombie.currentHealth;
                 }
             }
-            health_heroes = all_health_heroes;
-            health_zombie = all_health_zombie;
+            HealthHeroes = allHealthHeroes;
+            HealthZombie = allHealthZombie;
         }
         
     }
